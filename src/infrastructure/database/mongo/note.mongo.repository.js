@@ -17,4 +17,8 @@ export default class NoteMongoRepository {
     async findByUserId(userId) {
        return await NoteModel.find({ userId });
     }
+
+    async findById(id) {
+        return await NoteModel.findById(id);
+}
 }

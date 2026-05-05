@@ -202,6 +202,8 @@ router.delete("/:id", authMiddleware, roleMiddleware(["admin"]), noteController.
  *       400:
  *         description: No se pudo enviar el correo o no es dueño de la nota
  */
+router.get("/:id/public", noteController.getPublicNote);
+
 router.post("/:id/share", authMiddleware, noteController.shareNote);
 
 export default router;

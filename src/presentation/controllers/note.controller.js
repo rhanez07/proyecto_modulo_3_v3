@@ -121,4 +121,41 @@ export default class NoteController {
             });
         }
     }
+getPublicNote = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const note = await this.noteService.getNoteById(id);
+
+        if (!note) {
+            return res.status(404).json({
+                type: "error",
+                title: "Nota no encontrada",
+                description: "No existe una nota con el id proporcionado."
+            });
+        }
+
+        if (note.isPrivate === true) {
+            return res.status(403).json({
+                type: "error",
+                title: "Acceso denegado",
+                description: "La nota es privada y no puede visualizarse públicamente."
+            });
+        }
+
+        res.status(200).json({
+            type: "success",
+            title: "Nota pública obtenida",
+            description: "La nota pública fue obtenida correctamente.",
+            data: note
+        });
+    } catch (error) {
+        res.status(500).json({
+            type: "error",
+            title: "Error interno del servidor",
+            description: error.message
+        });
+    }
+};
+    
 }

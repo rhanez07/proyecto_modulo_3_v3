@@ -41,4 +41,8 @@ export default class NoteService {
 
         return await this.mailService.sendNoteEmail(targetEmail, note);
     }
+
+    async getNoteById(id) {
+        return await this.noteRepository.findById(id);
+}
 }
